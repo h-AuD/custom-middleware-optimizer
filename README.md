@@ -1,2 +1,2 @@
-# custom-spring-boot-starter
-自定义的spring boot启动器(包括对现有的组件进行优化配置)
+# custom-middleware-optimizer
+自定义中间件优化器 -- 主要包含对常用组件(eg.redis、datasource...)的配置操作的优化
