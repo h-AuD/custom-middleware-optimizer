@@ -7,6 +7,9 @@
     <groupId>AuD.middleware.optimizer</groupId>
     <artifactId>optimizer-dependencies</artifactId>
     <version>1.0.0</version>
+    <modules>
+        <module>ssh-forward-autoconfigure</module>
+    </modules>
 
 
     <packaging>pom</packaging>

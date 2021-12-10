@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>optimizer-dependencies</artifactId>
+        <groupId>AuD.middleware.optimizer</groupId>
+        <version>1.0.0</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>ssh-forward-autoconfigure</artifactId>
+
+    <description>
+        1.ssh 端口转发,主要用于jumper server,eg:当连接DB的IP不能直接连,需要使用跳板机做shell隧道连接.
+        2.配置简单,只需要提供一个模板数据(json) 以及 在spring环境配置模板文件路径属性,eg:bind-demo.json,ssh.forward.config.absolute.path
+        3.this component 使用场景概率不大,正常情况下,仅需要运维同学帮忙设置安全策略(即服务器端口映射)即可.
+        4.有兴趣可以阅读下readme内容.
+    </description>
+
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+
+        <jsch.version>0.1.55</jsch.version>
+
+    </properties>
+
+    <!-- ======= 依赖管理 ====== -->
+    <dependencies>
+
+        <!-- ===================== below is compile scope dependencies ================= -->
+
+        <!-- spring boot autoconfigure dependency -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- 用于SSH连接工具,主要用于端口转发和SFTP -->
+        <dependency>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>${jsch.version}</version>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- jackson dependency -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- logback dependency -->
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+</project>

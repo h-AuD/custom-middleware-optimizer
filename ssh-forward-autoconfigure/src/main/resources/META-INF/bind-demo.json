@@ -1,0 +1,30 @@
+{
+    "globalHostInfo": {
+        "host": "xxx",
+        "userName": "AuD",
+        "port": 22,
+        "password": "123",
+        "permAbsolutePath": "/AB/C"
+    },
+    "forwards": [
+        {
+            "jumper": {},
+            "targets": [
+                {
+                    "localPort": 6379,
+                    "remoteHost": "120.0.0.1",
+                    "remotePort": 6379
+                }
+            ]
+        },
+        {
+            "targets": [
+                {
+                    "localPort": 6378,
+                    "remoteHost": "120.0.0.2",
+                    "remotePort": 6378
+                }
+            ]
+        }
+    ]
+}
