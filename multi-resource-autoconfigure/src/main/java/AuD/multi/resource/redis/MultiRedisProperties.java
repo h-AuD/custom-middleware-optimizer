@@ -18,7 +18,7 @@ import java.util.Map;
 public class MultiRedisProperties {
 
     /** 是否开启配置条件(i.e.当condition=true时,multiRedis才会生效),默认为false */
-    private boolean condition = Boolean.FALSE;
+    private boolean flag = Boolean.FALSE;
 
     /**
      * redis具体配置信息. -- Map类型(Map<String,Object>) <br>
@@ -33,12 +33,12 @@ public class MultiRedisProperties {
     private RedisProperties.Pool publicPool;
 
 
-    public boolean isCondition() {
-        return condition;
+    public boolean isFlag() {
+        return flag;
     }
 
-    public void setCondition(boolean condition) {
-        this.condition = condition;
+    public void setFlag(boolean flag) {
+        this.flag = flag;
     }
 
     public Map<String, RedisPropertiesPlus> getResource() {
