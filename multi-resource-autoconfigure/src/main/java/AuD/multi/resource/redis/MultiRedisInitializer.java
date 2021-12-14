@@ -1,5 +1,6 @@
 package AuD.multi.resource.redis;
 
+import AuD.multi.resource.utils.SpringEnvironmentUtils;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -31,10 +32,6 @@ import java.util.UUID;
  */
 public class MultiRedisInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-    /**
-     * 自动配置类排除的信号属性名
-     */
-    private static final String PROPERTY_NAME_AUTOCONFIGURE_EXCLUDE = "spring.autoconfigure.exclude";
 
     /**
      * redis autoconfigure class name(redis自动配置类的全限定名)
@@ -63,25 +60,7 @@ public class MultiRedisInitializer implements ApplicationContextInitializer<Conf
         if(propertySwitch){
             // 尝试排除redis自动配置,因为spring environment可能已经存在属性"spring.autoconfigure.exclude"
             ConfigurableEnvironment environment = applicationContext.getEnvironment();
-            String[] excludes = environment.getProperty(PROPERTY_NAME_AUTOCONFIGURE_EXCLUDE, String[].class);
-            // 当environment中存在"spring.autoconfigure.exclude"属性,并且排除内容不包含redisAutoConfigure时,才需要添加redisAutoConfigure
-            if(ObjectUtils.isEmpty(excludes)){
-                // excludes为null,往environment中添加属性源,其目的做自动装配的排除工作
-                excludes = new String[]{REDIS_AUTOCONFIGURE};
-            }else if(!Arrays.asList(excludes).contains(REDIS_AUTOCONFIGURE)) {
-                // excludes存在时,并且excludes不包含redisAutoConfigure
-                String[] tmp = new String[excludes.length+1];
-                System.arraycopy(excludes,0,tmp,0,excludes.length);
-                tmp[excludes.length] = REDIS_AUTOCONFIGURE;
-                excludes = tmp;
-            }
-            // 当 excludes 不为空时,才往 environment 中添加属性源(PropertySources)
-            if(!ObjectUtils.isEmpty(excludes)){
-                // 创建自动配置排除源(spring.autoconfigure.exclude)
-                Map<String,Object> excludeSource = new HashMap<>();
-                excludeSource.put(PROPERTY_NAME_AUTOCONFIGURE_EXCLUDE,excludes);
-                environment.getPropertySources().addFirst(new MapPropertySource(UUID.randomUUID().toString().replace("-",""),excludeSource));
-            }
+            SpringEnvironmentUtils.addAutoconfigureExcludes(environment,REDIS_AUTOCONFIGURE);
             applicationContext.getBeanFactory().addBeanPostProcessor(new MultiRedisBeanPostProcessor(applicationContext));
         }
     }
