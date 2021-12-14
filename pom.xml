@@ -9,6 +9,7 @@
     <version>1.0.0</version>
     <modules>
         <module>ssh-forward-autoconfigure</module>
+        <module>multi-resource-autoconfigure</module>
     </modules>
 
 
